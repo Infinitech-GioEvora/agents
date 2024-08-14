@@ -6,12 +6,7 @@
 
     <main>
         <section class="main-section pt-xl-5">
-            <div class="video-overlay">
-                <video autoplay muted loop id="myVideo">
-                    <source src="/assets/img/2_04_09_19.mp4" type="video/mp4">
-                    Your browser does not support HTML5 video.
-                </video>
-            </div>
+         
            
 
             <div class="container ">

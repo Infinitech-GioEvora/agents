@@ -23,4 +23,12 @@ Route::get('/test', function () {
     return view('Homepage/test');
 });
 
+Route::get('/admin', function () {
+    return view('Admin/index');
+});
+
+Route::get('/admin/employee', function () {
+    return view('Admin/Employee');
+});
+
 // Route::get('/', [MainController::class, 'show']);
