@@ -35,5 +35,9 @@ Route::get('/admin/employee', function () {
     return view('Admin/Employee');
 });
 
+Route::get('/abic/{employee_id}', function () {
+    return view('Admin/Employee');
+});
+
 Route::post('/admin/add', [MainController::class, 'add']);
 Route::get('/admin/all', [MainController::class, 'all']);

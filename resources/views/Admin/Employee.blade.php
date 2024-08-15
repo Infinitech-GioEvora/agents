@@ -1,6 +1,6 @@
 @extends('Layout.Admin.Layout')
 
-@section('title', 'Schedules')
+@section('title', 'Agents')
 
 @section('content')
     @php $ent = 'Schedule' @endphp

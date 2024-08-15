@@ -15,6 +15,12 @@ class MainController extends Controller
         return response($data);
     }
 
+    public function employee($employee_id){
+        $record = Employee::where('empoyeeID', $employee_id)->first();
+        $data = ['record' => $record];
+        return view('Homepage/index', $data);
+    }
+
     public $ent = "Employee";
 
     public function add(Request $request)

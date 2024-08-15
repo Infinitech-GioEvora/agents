@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dental Clinic - @yield('title')</title>
+    <title>Abic Realty - @yield('title')</title>
 
     @section('links')
         <!-- Favicon -->
