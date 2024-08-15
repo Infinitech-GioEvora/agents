@@ -3,7 +3,7 @@
 @section('title', 'Agent')
 
 @section('content')
-
+   
     <main>
         <section class="main-section pt-xl-5">
 
@@ -14,12 +14,11 @@
 
                 <div class="company text-center pt-4 ">
                     <img src="/assets/img/abic.png" alt="">
-                    {{-- <h1 class="top-title text-white">ABIC REALTY</h1> --}}
                 </div>
                 <div class="card-body">
                     <div class="profile text-center">
                         <img src="/assets/gq-gal-gadot-accent.webp" alt="">
-                        <h2 class="name">$record['lastname']</h2>
+                        <h2 class="name">{{$record->lastname}}</h2>
                         <h3 class="position">Property Specialist</h3>
                         <div class="desc">
                             <h5 class="address"><b><i class="fa-solid fa-location-dot"></i> Office Address: </b> 202 Campus Rueda Urban Avenue, Makati City</h5>
