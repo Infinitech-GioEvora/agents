@@ -19,10 +19,14 @@
                             <i class='bx bx-export'></i> Export
                         </button>
                         <ul class="dropdown-menu">
-                            <li><button type="button" class="btn dropdown-item copy_btn"><i class='bx bx-copy'></i> Copy</button></li>
-                            <li><button type="button" class="btn dropdown-item print_btn"><i class='bx bx-printer'></i> Print</button></li>
-                            <li><button type="button" class="btn dropdown-item excel_btn"><i class='bx bx-file'></i>Excel</button></li>
-                            <li><button type="button" class="btn dropdown-item pdf_btn"><i class='bx bxs-file-pdf'></i> Pdf</button></li>
+                            <li><button type="button" class="btn dropdown-item copy_btn"><i class='bx bx-copy'></i>
+                                    Copy</button></li>
+                            <li><button type="button" class="btn dropdown-item print_btn"><i class='bx bx-printer'></i>
+                                    Print</button></li>
+                            <li><button type="button" class="btn dropdown-item excel_btn"><i
+                                        class='bx bx-file'></i>Excel</button></li>
+                            <li><button type="button" class="btn dropdown-item pdf_btn"><i class='bx bxs-file-pdf'></i>
+                                    Pdf</button></li>
                         </ul>
                     </div>
                     <div class="dropdown">
@@ -33,59 +37,92 @@
                 </div>
             </div>
         </div>
-        
-        <div class="table-responsive tbl_div">
 
-        </div>
+        <div class="table-responsive tbl_div"></div>
     </div>
 
     <!-- Add Modal -->
     <div class="modal fade add_modal" tabindex="-1">
-        <div class="modal-dialog modal-sm">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Add {{ $ent }}</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form class="add_form">
+                <form class="add_form">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add {{ $ent }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <div class="row mb-3">
+                            <div class="col-4 mb-3">
+                                <label for="" class="form-label">Last name</label>
+                                <input type="text" class="form-control" placeholder="Enter Name" name="lastname" />
+                            </div>
+                            <div class="col-4 mb-3">
+                                <label for="" class="form-label">First name</label>
+                                <input type="text" class="form-control" placeholder="Enter Name" name="firstname" />
+                            </div>
+                            <div class="col-4 mb-3">
+                                <label for="" class="form-label">Middle name</label>
+                                <input type="text" class="form-control" placeholder="Enter Name" name="middlename" />
+                            </div>
+                            <div class="col-4 mb-3">
+                                <label for="" class="form-label">Position</label>
+                               <select name="position" class="form-control " id="">
+                                <Option value="Property Specialist">Property Specialist</Option>
+                               </select>
+                            </div>
+                            <div class="col-4 mb-3">
+                                <label for="" class="form-label">Employee ID</label>
+                                <input type="text" class="form-control" placeholder="Enter Name" name="employeeID" />
+                            </div>
+                        </div>
+
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="" class="form-label">Name</label>
-                                <input type="text" class="form-control" placeholder="Enter Name" name="name"/>
+                                <textarea name="description" class="form-control" id="" cols="30" rows="5"></textarea>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col">
-                                <label for="" class="form-label">Email</label>
-                                <input type="email" class="form-control" placeholder="Enter Email Address" name="email"/>
+                                <label for="" class="form-label">Facebook</label>
+                                <input type="text" class="form-control" placeholder="Enter Email Address" name="facebook" />
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col">
-                                <label for="" class="form-label">Phone</label>
-                                <input type="text" class="form-control" placeholder="Enter Phone Number" name="phone"/>
+                                <label for="" class="form-label">Telegram</label>
+                                <input type="text" class="form-control" placeholder="Enter Phone Number" name="telegram" />
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <label for="" class="form-label">Date</label>
-                                <input type="date" class="form-control" name="date"/>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="" class="form-label">Wechat</label>
+                                <input type="text" class="form-control" placeholder="Enter Phone Number" name="wechat" />
                             </div>
-                            <div class="col-6">
-                                <label for="" class="form-label">Time</label>
-                                <input type="time" class="form-control" name="time"/>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="" class="form-label">Viber</label>
+                                <input type="text" class="form-control" placeholder="Enter Phone Number" name="viber" />
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="" class="form-label">Whatsapp</label>
+                                <input type="text" class="form-control" placeholder="Enter Phone Number" name="whatsapp" />
                             </div>
                         </div>
 
-                        <input type="hidden" name="status" value="Pending">
-                </div>
-                <div class="modal-footer">
+                    </div>
+                    <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">Save</button>
                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
 
-                    </form>
-                </div>
+
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -105,37 +142,39 @@
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="" class="form-label">Name</label>
-                                <input type="text" class="form-control" placeholder="Enter Name" name="name"/>
+                                <input type="text" class="form-control" placeholder="Enter Name" name="name" />
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="" class="form-label">Email</label>
-                                <input type="email" class="form-control" placeholder="Enter Email Address" name="email"/>
+                                <input type="email" class="form-control" placeholder="Enter Email Address"
+                                    name="email" />
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="" class="form-label">Phone</label>
-                                <input type="text" class="form-control" placeholder="Enter Phone Number" name="phone"/>
+                                <input type="text" class="form-control" placeholder="Enter Phone Number"
+                                    name="phone" />
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-6">
                                 <label for="" class="form-label">Date</label>
-                                <input type="date" class="form-control" name="date"/>
+                                <input type="date" class="form-control" name="date" />
                             </div>
                             <div class="col-6">
                                 <label for="" class="form-label">Time</label>
-                                <input type="time" class="form-control" name="time"/>
+                                <input type="time" class="form-control" name="time" />
                             </div>
                         </div>
 
                         <input type="hidden" name="status" value="Pending">
                 </div>
                 <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Update</button>
-                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
                     </form>
                 </div>
             </div>

@@ -31,4 +31,9 @@ Route::get('/admin/employee', function () {
     return view('Admin/Employee');
 });
 
-// Route::get('/', [MainController::class, 'show']);
+Route::get('/admin/employee', function () {
+    return view('Admin/Employee');
+});
+
+Route::post('/admin/add', [MainController::class, 'add']);
+Route::get('/admin/all', [MainController::class, 'all']);

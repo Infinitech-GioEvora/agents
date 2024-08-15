@@ -16,19 +16,20 @@ $(document).ready(function () {
         $(".add_form span").remove();
 
         $.ajax({
-            url: `/admin/${ent}/add`,
+            url: `/admin/add`,
             method: "POST",
             data: new FormData(this),
             contentType: false,
             processData: false,
             success: function (res) {
                 toastr.success(res.msg);
-                all()
+                // all()
                 $(`.add_form`).trigger("reset");
-                $(`.add_modal`).modal("hide");
+                // $(`.add_modal`).modal("hide");
             },
             error: function (res) {
                 var errors = res.responseJSON.errors;
+                console.log(res)
 
                 var inputs = $(".add_form input, .add_form select, .add_form textarea")
                 for (var input of inputs) {
@@ -51,7 +52,6 @@ $(document).ready(function () {
 
     $(".upd_form").submit(function (e) {
         e.preventDefault();
-        $(".upd_form span").remove();
 
         $.ajax({
             type: "POST",
@@ -161,7 +161,7 @@ function all() {
 
     $.ajax({
         type: "GET",
-        url: `/admin/${ent}/all`,
+        url: `/admin/all`,
         success: function (res) {
             var records = res.records;
 
@@ -170,7 +170,7 @@ function all() {
             var thead = $("<thead>");
             var thr = $("<tr>");
 
-            var cols = ["Name", "Email", "Phone", "Date", "Time", "Status", "Action"];
+            var cols = ["Employee ID", "Lastname", "Firstname", "Middle Name", "QR Code"];
             for (var col of cols) {
                 thr.append($("<th>").text(col))
             }
@@ -185,43 +185,13 @@ function all() {
 
             if (records.length > 0) {
                 for (var record of records) {
-                    var keys = ["name", "email", "phone", "date", "time", "status", "action"]
+                    var keys = ["employeeID", "lastname", "firstname", "middlename", "qrcode"]
                     var tr = $("<tr>").data("id", record.id)
 
                     for (var key of keys) {
                         var html = ""
                         if (key == "action") {
                             html = action
-                        }
-                        else if (key == "date") {
-                            var date = new Date(record[key])
-                            date = date.toLocaleString('default', {month: 'long', day: 'numeric', year: 'numeric'})
-                            html = date
-                        }
-                        else if (key == "time") {
-                            var time = new Date(`01/01/2024 ${record[key]}`)
-                            time = time.toLocaleTimeString('en-US', { hour12: true })
-                            html = time
-                        }
-                        else if (key == "status") {
-                            var bg = ""
-                            if (record[key] == "Pending") {
-                                bg = "warning"
-                                stat_btn = 
-                                            `
-                                                <a href="javascript:;" class="dropdown-item border-bottom border-2 del_btn">Delete</a>
-                                                <a href="javascript:;" class="dropdown-item stat_btn">Accept</a>
-                                                <a href="javascript:;" class="dropdown-item stat_btn">Decline</a>
-                                            `
-                            }
-                            else {
-                                if (record[key] == "Accepted") {bg = "success"}
-                                else if (record[key] == "Declined") {bg = "danger"}
-                                stat_btn = `<a href="javascript:;" class="dropdown-item del_btn">Delete</a>`
-                            }
-
-                            action = set_action(stat_btn)
-                            html = `<span class="badge bg-${bg}">${record[key]}</span>`
                         }
                         else {
                             html = record[key]
@@ -273,19 +243,3 @@ function all() {
     });
 }
 
-function set_action(stat_btn) {
-    var action = 
-                    `
-                        <div class="d-inline-block text-nowrap">                
-                            <button class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                <i class="bx bx-dots-vertical-rounded"></i>
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-end m-0">
-                                <a href="javascript:;" class="dropdown-item edit_btn">Edit</a>
-                                ${stat_btn}
-                            </div>
-                        </div>
-                    `
-
-    return action
-}
