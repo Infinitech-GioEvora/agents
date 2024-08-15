@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string("wechat");
             $table->string("viber");
             $table->string("whatsapp");
+            $table->string("profile");
             $table->text("qrcode")->nullable();
             $table->timestamps();
         });
