@@ -9,13 +9,15 @@ use Illuminate\Http\Request;
 class MainController extends Controller
 {
 
-    public function all(){
+    public function all()
+    {
         $records = Employee::all();
         $data = ['records' => $records];
         return response($data);
     }
 
-    public function employee($employee_id){
+    public function employee($employee_id)
+    {
         // $record = Employee::all();
         $record = Employee::where('employeeID', $employee_id)->first();
         $data = ['record' => $record];
@@ -37,6 +39,7 @@ class MainController extends Controller
             'wechat' => 'required',
             'viber' => 'required',
             'whatsapp' => 'required',
+            'profile' => 'required|file|mimes:jpg,png,jpeg|max:2048',
         ]);
 
         $record = new Employee();
@@ -49,10 +52,14 @@ class MainController extends Controller
             ->eye('circle')
             ->gradient($from[0], $from[1], $from[2], $to[0], $to[1], $to[2], 'diagonal')
             ->margin(1)
-            ->generate(
-                $request['employeeID'],
-            );
+            ->generate($request['employeeID']);
 
+
+        if ($request->hasFile('profile')) {
+            $file = $request->file('profile');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $filePath = $file->move('profiles', $filename, 'public');
+        }
 
         $keys = [
             'lastname',
@@ -66,13 +73,21 @@ class MainController extends Controller
             'wechat',
             'viber',
             'whatsapp',
+            'profile',
             'qrcode'
         ];
+
+
+
 
         foreach ($keys as $key) {
             if ($key == 'qrcode') {
                 $record->$key = $qr;
-            } else {
+            } 
+            elseif($key == 'profile'){
+                $record->$key = $filename;
+            }
+            else {
                 $record->$key = $request->$key;
             }
         }

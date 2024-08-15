@@ -20,10 +20,10 @@
                 <div>Dashboard</div>
             </a>
         </li>
-        <li class="menu-item {{ request()->is('/admin/schedules') ? 'active' : '' }}">
-            <a href="/admin/schedules" class="menu-link">
+        <li class="menu-item {{ request()->is('/admin/employee') ? 'active' : '' }}">
+            <a href="/admin/employee" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-calendar"></i>
-                <div>Schedules</div>
+                <div>Employee</div>
             </a>
         </li>
     </ul>

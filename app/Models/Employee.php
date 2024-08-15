@@ -21,6 +21,7 @@ class Employee extends Model
         "wechat",
         "viber",
         "whatsapp",
+        "profile",
         "qrcode",
     ];
 }

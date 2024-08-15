@@ -170,7 +170,7 @@ function all() {
             var thead = $("<thead>");
             var thr = $("<tr>");
 
-            var cols = ["Employee ID", "Lastname", "Firstname", "Middle Name", "QR Code"];
+            var cols = ["Employee ID", "Lastname", "Firstname", "Middle Name", "QR Code", "Action"];
             for (var col of cols) {
                 thr.append($("<th>").text(col))
             }
@@ -179,13 +179,23 @@ function all() {
             tbl.append(thead);
 
             var tbody = $("<tbody>");
-
-            var stat_btn = ""
-            var action = ""
+           
+            var action =    
+            `
+                <div class="d-inline-block text-nowrap">                
+                    <button class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                        <i class="bx bx-dots-vertical-rounded"></i>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end m-0">
+                        <a href="javascript:;" class="dropdown-item edit_btn">Edit</a>
+                        <a href="javascript:;" class="dropdown-item del_btn">Delete</a>
+                    </div>
+                </div>
+            `
 
             if (records.length > 0) {
                 for (var record of records) {
-                    var keys = ["employeeID", "lastname", "firstname", "middlename", "qrcode"]
+                    var keys = ["employeeID", "lastname", "firstname", "middlename", "qrcode", "action"]
                     var tr = $("<tr>").data("id", record.id)
 
                     for (var key of keys) {
