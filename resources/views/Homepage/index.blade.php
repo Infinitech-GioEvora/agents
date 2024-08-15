@@ -6,12 +6,7 @@
    
     <main>
         <section class="main-section pt-xl-5">
-
-
-
             <div class="container ">
-
-
                 <div class="company text-center pt-4 ">
                     <img src="/assets/img/abic.png" alt="">
                 </div>
