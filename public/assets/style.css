@@ -6,7 +6,6 @@ body {
     width: 100vw;
     height: 100vh;
     background: url("../assets/img/abic-background.png");
-    /* background: url("../assets/img/wave.svg"); */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -28,16 +27,16 @@ img {
 }
 
 .profile img {
-    width: 250px;
-    height: 250px;
-    margin: 64px 0px 32px;
+    width: 200px;
+    height: 200px;
+    margin: 32px 0px 32px;
     border-radius: 8px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 
 .profile .name {
     color: #101720;
-    font-size: 48px;
+    font-size: 36px;
     font-weight: bold;
     line-height: 0.9;
     text-transform: uppercase;

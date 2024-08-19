@@ -2,7 +2,7 @@
     <div class="app-brand demo d-flex justify-content-center">
         <a href="/admin" class="app-brand-link">
             <span class="app-brand-logo demo">
-                <img src="/favicon/android-chrome-512x512.png" alt="" style="width: 130px;">
+                <img src="/assets/img/abic.png" alt="" style="width: 130px;">
             </span>
         </a>
 

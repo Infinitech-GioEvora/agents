@@ -27,6 +27,8 @@ Route::get('/admin', function () {
     return view('Admin/index');
 });
 
+Route::get('/admin/dashboard-data', [MainController::class, 'dashboard_data']);
+
 Route::get('/admin/employee', function () {
     return view('Admin/Employee');
 });
@@ -39,3 +41,6 @@ Route::get('/abic/{employeeID}', [MainController::class, 'employee']);
 
 Route::post('/admin/add', [MainController::class, 'add']);
 Route::get('/admin/all', [MainController::class, 'all']);
+Route::get('/admin/edit/{id}', [MainController::class, 'edit']);
+Route::post('/admin/upd/', [MainController::class, 'upd']);
+Route::get('/admin/del/{id}', [MainController::class, 'del']);

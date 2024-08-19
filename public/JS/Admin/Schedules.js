@@ -23,9 +23,9 @@ $(document).ready(function () {
             processData: false,
             success: function (res) {
                 toastr.success(res.msg);
-                // all()
+                all()
                 $(`.add_form`).trigger("reset");
-                // $(`.add_modal`).modal("hide");
+                $(`.add_modal`).modal("hide");
             },
             error: function (res) {
                 var errors = res.responseJSON.errors;
@@ -55,7 +55,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "POST",
-            url: `/admin/${ent}/upd`,
+            url: `/admin/upd`,
             data: new FormData(this),
             contentType: false,
             processData: false,
@@ -66,7 +66,7 @@ $(document).ready(function () {
                 $(`.upd_modal`).modal("hide");
             },
             error: function (res) {
-                // console.log(res);
+                console.log(res);
                 var errors = res.responseJSON.errors;
 
                 var inputs = $(".upd_form input, .upd_form select, .upd_form textarea");
@@ -90,7 +90,7 @@ $(document).ready(function () {
         e.preventDefault();
         $.ajax({
             type: "GET",
-            url: `/admin/${ent}/del/${id}`,
+            url: `/admin/del/${id}`,
             success: function (res) {
                 $(".del_form input[name=id]").val('');
                 toastr.success(res.msg);
@@ -98,7 +98,7 @@ $(document).ready(function () {
                 $(`.del_modal`).modal("hide");
             },
             error: function (res) {
-
+                console.log(res)
             },
         });
     });
@@ -107,19 +107,21 @@ $(document).ready(function () {
         var tr = $(this).closest('tr')
         var id = ""
         tr.data('id') == undefined ? id = tr.prev().data('id') : id = tr.data('id')
+        console.log(id)
 
         $(".upd_form input[name=id]").val(id);
         $(`.upd_modal`).modal("show");
 
         $.ajax({
             method: "GET",
-            url: `/admin/${ent}/edit/${id}`,
+            url: `/admin/edit/${id}`,
             success: function (res) {
                 var record = res.record;
-                var keys = ["name", "email", "phone", "date", "time", "status"];
+
+                var keys = ["id", "lastname", "firstname", "middlename", "position", "employeeID",  "facebook", "telegram",  "viber", "whatsapp"];
 
                 for (var key of keys) {
-                    $(`.upd_form input[name=${key}], .upd_form select[name=${key}], .upd_form textarea[name=${key}]`).val(record[key])
+                    $(`.upd_form input[name=${key}], .upd_form select[name=${key}], .upd_form textarea[name=${key}]`).val(record[key],)
                 }
             },
         })
@@ -189,6 +191,7 @@ function all() {
                     <div class="dropdown-menu dropdown-menu-end m-0">
                         <a href="javascript:;" class="dropdown-item edit_btn">Edit</a>
                         <a href="javascript:;" class="dropdown-item del_btn">Delete</a>
+                         <a href="javascript:;" class="dropdown-item qr_btn">Download QR</a>
                     </div>
                 </div>
             `
@@ -202,6 +205,9 @@ function all() {
                         var html = ""
                         if (key == "action") {
                             html = action
+                        }
+                        else if(key == "qrcode"){
+                             html = `<img class="w-50" src='/uploads/qrcodes/${record[key]}'></img>`
                         }
                         else {
                             html = record[key]
@@ -252,4 +258,67 @@ function all() {
         },
     });
 }
+
+// Dashboard
+
+$(document).ready(function () {
+    $.ajaxSetup({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+    })
+
+    $.ajax({
+        url: "/admin/dashboard-data/",
+        method: 'GET',
+        success: function (res) {
+           display_dashboard(res)
+        },
+        error: function (res) {
+            
+        },
+    })    
+})
+
+function display_dashboard(res) {
+    console.log(res)
+
+    var keys = ["All"]
+    var counts = $('.count')
+
+    for (var count of counts) {
+        for (var key of keys) {
+            if ($(count).find("span").text() == key) {
+                $(count).find("h3").html(res[key.toLowerCase()])
+            }
+        }
+    }
+
+}
+
+$(document).on("click", ".qr_btn", function () {
+    var tr = $(this).closest('tr');
+    var td = tr.children()[4]; 
+    
+ 
+    var img = $(td).find('img'); 
+
+    if (img.length > 0) {
+        var qrCodeSrc = img.attr('src');
+    
+        var a = document.createElement('a');
+        a.href = qrCodeSrc;
+        a.download = 'qrcode.png'; 
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    } else {
+        console.log("QR code image not found.");
+    }
+});
+
+
+
+
+
 

@@ -80,12 +80,6 @@
 
                         <div class="row mb-3">
                             <div class="col">
-                                <label for="" class="form-label">Name</label>
-                                <textarea name="description" class="form-control" id="" cols="30" rows="5"></textarea>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col">
                                 <label for="" class="form-label">Facebook</label>
                                 <input type="text" class="form-control" placeholder="Enter Email Address"
                                     name="facebook" />
@@ -101,8 +95,7 @@
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="" class="form-label">Wechat</label>
-                                <input type="text" class="form-control" placeholder="Enter Phone Number"
-                                    name="wechat" />
+                                <input type="file" name="wechat" class="form-control" id="">
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -131,7 +124,6 @@
                         <button type="submit" class="btn btn-primary">Save</button>
                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
 
-
                     </div>
                 </form>
             </div>
@@ -140,9 +132,9 @@
 
     <!-- Update Modal -->
     <div class="modal fade upd_modal" tabindex="-1">
-        <div class="modal-dialog modal-sm">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <form class="upd_form">
+                <form class="upd_form" enctype="multipart/form-data">
                     <div class="modal-header">
                         <h5 class="modal-title">Edit {{ $ent }}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
@@ -178,12 +170,6 @@
 
                         <div class="row mb-3">
                             <div class="col">
-                                <label for="" class="form-label">Name</label>
-                                <textarea name="description" class="form-control" id="" cols="30" rows="5"></textarea>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col">
                                 <label for="" class="form-label">Facebook</label>
                                 <input type="text" class="form-control" placeholder="Enter Email Address"
                                     name="facebook" />
@@ -199,8 +185,7 @@
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="" class="form-label">Wechat</label>
-                                <input type="text" class="form-control" placeholder="Enter Phone Number"
-                                    name="wechat" />
+                                <input type="file" name="wechat" class="form-control" id="">
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -219,7 +204,7 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col">
-                                <label for="" class="form-label">Whatsapp</label>
+                                <label for="" class="form-label">Profile Pic</label>
                                 <input type="file" name="profile" class="form-control" id="">
                             </div>
                         </div>

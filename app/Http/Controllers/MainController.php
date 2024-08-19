@@ -5,14 +5,32 @@ namespace App\Http\Controllers;
 use App\Models\Employee;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use PHPUnit\TextUI\Configuration\Merger;
 
 class MainController extends Controller
 {
+
+    public function dashboard_data()
+    {
+        $data["all"] = Employee::all()->count();
+    }
 
     public function all()
     {
         $records = Employee::all();
         $data = ['records' => $records];
+        return response($data);
+    }
+
+    public function edit($id)
+    {
+        $record = Employee::find($id);
+
+        $data = [
+            'record' => $record,
+        ];
+
         return response($data);
     }
 
@@ -33,33 +51,73 @@ class MainController extends Controller
             'middlename' => 'required',
             'position' => 'required',
             'employeeID' => 'required',
-            'description' => 'required',
             'facebook' => 'required',
             'telegram' => 'required',
-            'wechat' => 'required',
+            'wechat' => 'required|file|mimes:jpg,png,jpeg|max:2048',
             'viber' => 'required',
             'whatsapp' => 'required',
             'profile' => 'required|file|mimes:jpg,png,jpeg|max:2048',
         ]);
 
         $record = new Employee();
-
-        $from = [255, 0, 0];
-        $to = [0, 0, 255];
-
-        $qr =  QrCode::size(200)
-            ->style('dot')
-            ->eye('circle')
-            ->gradient($from[0], $from[1], $from[2], $to[0], $to[1], $to[2], 'diagonal')
+        $qrcode = QrCode::format('png')
+            ->size(512)
+            ->merge('/public/assets/img/qr-bg.png')
+            ->errorCorrection('L')
             ->margin(1)
-            ->generate($request['employeeID']);
+            ->generate("http://127.0.0.1:8000/abic/" .$request['employeeID']
+        );
+
+        $keys = ['lastname','firstname', 'middlename', 'position','employeeID','facebook','telegram','wechat','viber', 'whatsapp','profile','qrcode'];
 
 
-        if ($request->hasFile('profile')) {
-            $file = $request->file('profile');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $filePath = $file->move('profiles', $filename, 'public');
+        foreach ($keys as $key) {
+            if ($key == 'qrcode') { 
+                $filename = $request['employeeID'] . '.png';
+                Storage::disk('public')->put('qrcodes/' . $filename, $qrcode);
+                $record->$key = $filename;
+
+            } elseif ($key == 'wechat') {
+                if ($request->hasFile('wechat')) {
+                    $file = $request->file('wechat');
+                    $filename = time() . '_' . $file->getClientOriginalName();
+                    $filePath = $file->move('wechat', $filename, 'public');
+                    $record->$key = $filename;
+                }
+            } elseif ($key == 'profile') {
+                if ($request->hasFile('profile')) {
+                    $file = $request->file('profile');
+                    $filename = time() . '_' . $file->getClientOriginalName();
+                    $filePath = $file->move('profiles', $filename, 'public');
+                    $record->$key = $filename;
+                }
+            } else {
+                $record->$key = $request->$key;
+            }
         }
+        $record->save();
+
+        return response(['msg' => "Added $this->ent"]);
+    }
+
+    public function upd(Request $request)
+    {
+        $request->validate([
+            'lastname' => 'required',
+            'firstname' => 'required',
+            'middlename' => 'required',
+            'position' => 'required',
+            'employeeID' => 'required',
+            'facebook' => 'required',
+            'telegram' => 'required',
+            'wechat' => 'required',
+            'viber' => 'required',
+            'whatsapp' => 'required',
+        ]);
+
+        $record = Employee::find($request->id);
+
+
 
         $keys = [
             'lastname',
@@ -77,22 +135,47 @@ class MainController extends Controller
             'qrcode'
         ];
 
-
-
-
         foreach ($keys as $key) {
             if ($key == 'qrcode') {
-                $record->$key = $qr;
-            } 
-            elseif($key == 'profile'){
-                $record->$key = $filename;
-            }
-            else {
-                $record->$key = $request->$key;
+                $from = [255, 0, 0];
+                $to = [0, 0, 255];
+
+                $qr =  QrCode::size(200)
+                    ->style('dot')
+                    ->eye('circle')
+                    ->gradient($from[0], $from[1], $from[2], $to[0], $to[1], $to[2], 'diagonal')
+                    ->margin(1)
+                    ->generate($request['employeeID']);
+
+
+                $upd[$key] = $qr;
+            } elseif ($key == 'wechat') {
+                if ($request->hasFile('wechat')) {
+                    $file = $request->file('wechat');
+                    $filename = time() . '_' . $file->getClientOriginalName();
+                    $filePath = $file->move('wechat', $filename, 'public');
+                    $upd[$key] = $filename;
+                }
+            } elseif ($key == 'profile') {
+                if ($request->hasFile('profile')) {
+                    $file = $request->file('profile');
+                    $filename = time() . '_' . $file->getClientOriginalName();
+                    $filePath = $file->move('profiles', $filename, 'public');
+
+                    $upd[$key] = $filename;
+                }
+            } else {
+                $upd[$key] = $request->$key;
             }
         }
-        $record->save();
+        $record->update($upd);
 
-        return response(['msg' => "Added $this->ent"]);
+        return response(['msg' => "Updated $this->ent"]);
+    }
+
+    public function del($id)
+    {
+        $record = Employee::find($id)->delete();
+        return response(['msg' => "Deleted $this->ent"]);
     }
 }
