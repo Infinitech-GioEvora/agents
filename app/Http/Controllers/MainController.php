@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Employee;
+use App\Models\Employee as employee;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -109,15 +109,12 @@ class MainController extends Controller
             'position' => 'required',
             'employeeID' => 'required',
             'facebook' => 'required',
-            'telegram' => 'required',
-            'wechat' => 'required',
+            'telegram' => 'required',     
             'viber' => 'required',
             'whatsapp' => 'required',
         ]);
 
         $record = Employee::find($request->id);
-
-
 
         $keys = [
             'lastname',
@@ -132,31 +129,18 @@ class MainController extends Controller
             'viber',
             'whatsapp',
             'profile',
-            'qrcode'
         ];
 
         foreach ($keys as $key) {
-            if ($key == 'qrcode') {
-                $from = [255, 0, 0];
-                $to = [0, 0, 255];
-
-                $qr =  QrCode::size(200)
-                    ->style('dot')
-                    ->eye('circle')
-                    ->gradient($from[0], $from[1], $from[2], $to[0], $to[1], $to[2], 'diagonal')
-                    ->margin(1)
-                    ->generate($request['employeeID']);
-
-
-                $upd[$key] = $qr;
-            } elseif ($key == 'wechat') {
+            if ($key == 'wechat') {
                 if ($request->hasFile('wechat')) {
                     $file = $request->file('wechat');
                     $filename = time() . '_' . $file->getClientOriginalName();
                     $filePath = $file->move('wechat', $filename, 'public');
                     $upd[$key] = $filename;
                 }
-            } elseif ($key == 'profile') {
+            } 
+            elseif ($key == 'profile') {
                 if ($request->hasFile('profile')) {
                     $file = $request->file('profile');
                     $filename = time() . '_' . $file->getClientOriginalName();

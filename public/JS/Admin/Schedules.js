@@ -318,6 +318,21 @@ $(document).on("click", ".qr_btn", function () {
 });
 
 
+$(document).on("click", ".btn-download", function () {
+    alert[1]
+    var imgSrc = $('#wechatImage').attr('src');
+    var fileName = $('#wechatImage').attr('alt');
+
+    // Create a temporary anchor element
+    var a = document.createElement('a');
+    a.href = imgSrc;
+    a.download = fileName;
+
+    // Trigger the download
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+});
 
 
 

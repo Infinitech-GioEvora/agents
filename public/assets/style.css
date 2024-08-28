@@ -1,89 +1,185 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
-body {
+:root {
+    --primary-color: #a73f6a;
+    --secondary-color: #4b3671;
+    --accent-colot: #C9D6E7;
+    --background-color: #82ADE0;
+    --light-color: #F7F7F8;
+    --font-family: "Montserrat";
+}
+
+* {
     padding: 0;
     margin: 0;
-    width: 100vw;
-    height: 100vh;
-    background: url("../assets/img/abic-background.png");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    overflow-x: hidden;
-    font-family: "Montserrat", sans-serif;
-
 }
+
+
+body {
+    overflow-x: hidden;
+    margin: 0;
+    background: linear-gradient(167deg, rgba(167, 63, 106, 1) 0%, rgba(75, 54, 113, 1) 100%);
+    background-size: cover;
+    min-height: 100vh;
+    font-family: var(--font-family);
+}
+
+
 img {
     width: 100%;
 }
 
-
-
-
-.card {
-    background-color: transparent;
-    width: 100%;
+/* From Uiverse.io by Madflows */
+.button {
+    position: relative;
+    overflow: hidden;
+    height: 3rem;
+    text-align: center;
+    padding: 0 2rem;
+    border-radius: 1.5rem;
+    background: #3d3a4e;
+    background-size: 400%;
+    color: #fff;
     border: none;
+    cursor: pointer;
 }
 
-.profile img {
-    width: 200px;
-    height: 200px;
-    margin: 32px 0px 32px;
-    border-radius: 8px;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+.button:hover::before {
+    transform: scaleX(1);
 }
 
-.profile .name {
-    color: #101720;
-    font-size: 36px;
-    font-weight: bold;
-    line-height: 0.9;
+.button-content {
+    position: relative;
+    z-index: 1;
+}
+
+.button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    width: 100%;
+    height: inherit;
+    border-radius: inherit;
+    background: linear-gradient(82.3deg,
+            rgba(150, 93, 233, 1) 10.8%,
+            rgba(99, 88, 238, 1) 94.3%);
+    transition: all 0.475s;
+}
+
+.custom-tooltip {
+    --bs-tooltip-bg: var(--secondary-color);
+    --bs-tooltip-color: var(--bs-white);
+}
+
+.main-section {
+    padding: 64px 0px;
+}
+
+
+
+
+.left-content img {
+    border-radius: 16px;
+    border: 2px solid #f9f9f9;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+
+.right-content {
+    position: relative;
+    background: none;
+    top: 25px;
+    padding: 16px 24px;
+}
+
+.right-content::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('/assets/img/abic logo.png') center no-repeat;
+    background-size: contain;
+    opacity: 0.8;
+    z-index: -1;
+}
+
+
+.employee-name {
     text-transform: uppercase;
+    font-weight: bold;
+    color: var(--light-color);
+    font-size: clamp(26px, 4vw, 56px);
+    line-height: 1;
+    font-family: var(--font-family), sans-serif;
 }
 
-.position {
-    font-size: 24px;
-    margin-bottom: 32px;
-    color: #352f36;
-}
-.desc{
-    margin-bottom: 32px;
+.employee-position {
+    text-transform: capitalize;
+    color: var(--light-color);
+    font-size: clamp(16px, 3vw, 26px);
+    font-family: var(--font-family), sans-serif;
 }
 
-.desc h5{
-    font-size: 16px;
-   
+.employee-contact {
+    color: var(--light-color);
+    line-height: 1.6;
+    font-family: var(--font-family), sans-serif;
 }
 
-.social-media {
-    display: flex;
-    justify-content: center;
+.employee-desc {
+    color: var(--light-color);
+    line-height: 1.6;
+    text-transform: capitalize;
+    font-weight: 400;
+    font-family: var(--font-family), sans-serif;
+
 }
+
 
 
 .social {
-    margin: 8px;
-    transition: ease-in-out .2s;
-}
-
-.social:hover{
-    transform: scale(1.5);
-}
-
-.social img {
-    width: 48px;
-   
-}
-
-.company img {
-    width: 130px;
+    margin: 0px 16px 0px 0px;
+    background-color: var(--accent-colot);
     padding: 8px;
-    /* background-color: #f9f9f9; */
-    border-radius: 8px;
-}
-.top-title {
-    font-weight: bold;
-    text-transform: uppercase;
+    border-radius: 50%;
+    cursor: grab;
+    transition: ease-in-out .2s;
+    font-family: var(--font-family), sans-serif;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 
+.social i {
+    font-size: 2rem;
+    color: var(--secondary-color);
+}
+
+.social:hover {
+    transform: scale(1.4);
+}
+
+@media only screen and (max-width: 480px) {
+    .main-section {
+        text-align: center;
+    }
+
+    .employee-social {
+        margin-top: 24px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .employee-img {
+        background-color: transparent;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+    }
+
+    .employee-img img {
+        width: 100%;
+    }
+}
