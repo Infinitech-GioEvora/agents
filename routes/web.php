@@ -16,7 +16,7 @@ use App\Http\Controllers\QrCodeController;
 */
 
 Route::get('/', function () {
-    return view('Homepage/index');
+    return view('error/PageNotFound');
 });
 
 Route::get('/test', function () {
@@ -44,3 +44,5 @@ Route::get('/admin/all', [MainController::class, 'all']);
 Route::get('/admin/edit/{id}', [MainController::class, 'edit']);
 Route::post('/admin/upd/', [MainController::class, 'upd']);
 Route::get('/admin/del/{id}', [MainController::class, 'del']);
+
+

@@ -20,7 +20,6 @@ class MainController extends Controller
     {
         $records = Employee::all();
         $data = ['records' => $records];
-        return response($data);
     }
 
     public function edit($id)
@@ -34,13 +33,30 @@ class MainController extends Controller
         return response($data);
     }
 
+    // public function employee($employee_id)
+    // {
+    //     // $record = Employee::all();
+    //     $record = Employee::where('employeeID', $employee_id)->first();
+    //     $data = ['record' => $record];
+    //     if($data == null){
+    //         return view('error/PageNotFound');
+    //     }else{
+    //         return view('Homepage/index', compact('record'));
+    //     }
+
+    // }
+
     public function employee($employee_id)
     {
-        // $record = Employee::all();
         $record = Employee::where('employeeID', $employee_id)->first();
-        $data = ['record' => $record];
-        return view('Homepage/index', compact('record'));
+
+        if ($record == null) {
+            return view('error/PageNotFound');
+        } else {
+            return view('Homepage/index', compact('record'));
+        }
     }
+
     public $ent = "Employee";
 
     public function add(Request $request)
@@ -65,18 +81,18 @@ class MainController extends Controller
             ->merge('/public/assets/img/qr-bg.png')
             ->errorCorrection('L')
             ->margin(1)
-            ->generate("http://127.0.0.1:8000/abic/" .$request['employeeID']
-        );
+            ->generate(
+                "http://127.0.0.1:8000/abic/" . $request['employeeID']
+            );
 
-        $keys = ['lastname','firstname', 'middlename', 'position','employeeID','facebook','telegram','wechat','viber', 'whatsapp','profile','qrcode'];
+        $keys = ['lastname', 'firstname', 'middlename', 'position', 'employeeID', 'facebook', 'telegram', 'wechat', 'viber', 'whatsapp', 'profile', 'qrcode'];
 
 
         foreach ($keys as $key) {
-            if ($key == 'qrcode') { 
+            if ($key == 'qrcode') {
                 $filename = $request['employeeID'] . '.png';
                 Storage::disk('public')->put('qrcodes/' . $filename, $qrcode);
                 $record->$key = $filename;
-
             } elseif ($key == 'wechat') {
                 if ($request->hasFile('wechat')) {
                     $file = $request->file('wechat');
@@ -109,7 +125,7 @@ class MainController extends Controller
             'position' => 'required',
             'employeeID' => 'required',
             'facebook' => 'required',
-            'telegram' => 'required',     
+            'telegram' => 'required',
             'viber' => 'required',
             'whatsapp' => 'required',
         ]);
@@ -139,8 +155,7 @@ class MainController extends Controller
                     $filePath = $file->move('wechat', $filename, 'public');
                     $upd[$key] = $filename;
                 }
-            } 
-            elseif ($key == 'profile') {
+            } elseif ($key == 'profile') {
                 if ($request->hasFile('profile')) {
                     $file = $request->file('profile');
                     $filename = time() . '_' . $file->getClientOriginalName();
@@ -162,16 +177,16 @@ class MainController extends Controller
         $record = Employee::find($id);
 
         $paths = [];
-        array_push($paths, public_path("wechat/".$record->wechat));
-        array_push($paths, public_path("uploads/qrcodes/".$record->qrcode));
-        array_push($paths, public_path("profiles/".$record->profile));
+        array_push($paths, public_path("wechat/" . $record->wechat));
+        array_push($paths, public_path("uploads/qrcodes/" . $record->qrcode));
+        array_push($paths, public_path("profiles/" . $record->profile));
 
         foreach ($paths as $path) {
             file_exists($path) ? unlink($path) : false;
         }
         $record->delete();
 
-        
+
         return response(['msg' => "Deleted $this->ent"]);
     }
 }
