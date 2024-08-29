@@ -83,7 +83,7 @@
                                 <label for="" class="form-label">Facebook</label>
                                 <input type="text" class="form-control" placeholder="Enter Email Address"
                                     name="facebook" />
-                            </div>
+                            </div>`
                         </div>
                         <div class="row mb-3">
                             <div class="col">
@@ -121,7 +121,12 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Save</button>
+
+                        {{-- <button type="submit" class="btn btn-save btn-primary">Save</button> --}}
+                        <button type="submit" class="btn btn-save btn-primary">
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            Save
+                        </button>
                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
 
                     </div>
@@ -209,7 +214,6 @@
                             </div>
                         </div>
 
-                        
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">Update</button>
@@ -239,6 +243,20 @@
                             <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">No</button>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade loading_modal" id="loading_modal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <div class="spinner-border mb-2" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <div style="font-weight: bold">Loading...</div>
                 </div>
             </div>
         </div>

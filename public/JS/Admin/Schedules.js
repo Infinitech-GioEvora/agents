@@ -14,6 +14,8 @@ $(document).ready(function () {
     $(".add_form").submit(function (e) {
         e.preventDefault();
         $(".add_form span").remove();
+        $(`.loading_modal`).modal("show");
+      
 
         $.ajax({
             url: `/admin/add`,
@@ -26,6 +28,7 @@ $(document).ready(function () {
                 all()
                 $(`.add_form`).trigger("reset");
                 $(`.add_modal`).modal("hide");
+                $(`.loading_modal`).modal("hide");
             },
             error: function (res) {
                 var errors = res.responseJSON.errors;

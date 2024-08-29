@@ -159,7 +159,19 @@ class MainController extends Controller
 
     public function del($id)
     {
-        $record = Employee::find($id)->delete();
+        $record = Employee::find($id);
+
+        $paths = [];
+        array_push($paths, public_path("wechat/".$record->wechat));
+        array_push($paths, public_path("uploads/qrcodes/".$record->qrcode));
+        array_push($paths, public_path("profiles/".$record->profile));
+
+        foreach ($paths as $path) {
+            file_exists($path) ? unlink($path) : false;
+        }
+        $record->delete();
+
+        
         return response(['msg' => "Deleted $this->ent"]);
     }
 }
