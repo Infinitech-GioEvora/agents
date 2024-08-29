@@ -20,6 +20,7 @@ class MainController extends Controller
     {
         $records = Employee::all();
         $data = ['records' => $records];
+        return response($data);
     }
 
     public function edit($id)
@@ -38,12 +39,8 @@ class MainController extends Controller
     //     // $record = Employee::all();
     //     $record = Employee::where('employeeID', $employee_id)->first();
     //     $data = ['record' => $record];
-    //     if($data == null){
-    //         return view('error/PageNotFound');
-    //     }else{
-    //         return view('Homepage/index', compact('record'));
-    //     }
 
+    //     return view('Homepage/index', compact('record'));
     // }
 
     public function employee($employee_id)

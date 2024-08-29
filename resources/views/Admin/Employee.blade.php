@@ -145,7 +145,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
-
+                        
                         <input type="hidden" name="id" class="form-control">
 
                         <div class="row mb-3">

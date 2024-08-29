@@ -32,12 +32,13 @@ $(document).ready(function () {
             },
             error: function (res) {
                 var errors = res.responseJSON.errors;
-                console.log(res)
 
+                console.log(res)
+              
                 var inputs = $(".add_form input, .add_form select, .add_form textarea")
                 for (var input of inputs) {
                     var name = $(input).attr("name");
-
+                 
                     if (name in errors) {
                         for (var error of errors[name]) {
                             var error_msg = $(`<span class='text-danger'>${error}</span>`)
@@ -45,7 +46,14 @@ $(document).ready(function () {
                         }
                     }
                 }
+                console.log("Hiding loading modal due to errors."); 
+                $(`.loading_modal`).modal("hide");
             },
+            complete: function () {
+            
+                console.log("Complete callback executed, hiding loading modal if still visible."); 
+                $(".loading_modal").modal("hide");
+            }
         })
     })
 

@@ -33,9 +33,7 @@ Route::get('/admin/employee', function () {
     return view('Admin/Employee');
 });
 
-Route::get('/admin/employee', function () {
-    return view('Admin/Employee');
-});
+
 
 Route::get('/abic/{employeeID}', [MainController::class, 'employee']);
 
