@@ -160,11 +160,35 @@ img {
 .social:hover {
     transform: scale(1.4);
 }
+.contacts{
+    border: 1px solid #f9f9f9;
+    width: fit-content;
+    padding: 8px 16px;
+    font-weight: 700;
+    transition: ease-in-out .2s;
+}
+
+
+.contacts button{
+    text-decoration: none;
+    color: #f9f9f9;
+    background-color: transparent;
+    border: none;
+}
+
+.contacts:hover{
+    background-color: var(--primary-color);
+}
 
 @media only screen and (max-width: 480px) {
     .main-section {
         text-align: center;
     }
+
+    .contacts a{
+        text-align: center;
+    }
+
 
     .employee-social {
         margin-top: 24px;

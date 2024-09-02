@@ -42,5 +42,5 @@ Route::get('/admin/all', [MainController::class, 'all']);
 Route::get('/admin/edit/{id}', [MainController::class, 'edit']);
 Route::post('/admin/upd/', [MainController::class, 'upd']);
 Route::get('/admin/del/{id}', [MainController::class, 'del']);
-
+Route::get('/download-vcard', [MainController::class, 'downloadVCard']);
 

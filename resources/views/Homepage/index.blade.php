@@ -23,7 +23,7 @@
                                 aspernatur est nisi, quasi voluptates veritatis pariatur?</p>
                         </div>
 
-                        <div class="employee-contact mb-xl-5">
+                        <div class="employee-contact mb-4">
                             <div class="location"><b>Office Address:</b> Unit 311, Campos Rueda Bldg., Urban Avenue,
                                 Makati City
                             </div>
@@ -32,7 +32,18 @@
                             <div class="website"><b>Website:</b> www.infinitech.com</div>
                         </div>
 
-                        <div class="employee-social d-flex justify-content-around">
+                        <div class="contacts mb-xl-4">
+                            <form method="get" action="/download-vcard">
+                                <button type="submit" >
+                                    <i class="fa-solid fa-id-card"></i>
+                                    <span> Add to contacts</span>
+                                </button>
+                                <input type="hidden" name="id" value="{{ $record->employeeID }}">
+                            </form>
+                           
+                        </div>
+
+                        <div class="employee-social d-flex ">
                             <div class="social facebook" data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-custom-class="custom-tooltip" data-bs-title="Facebook" >
                                 <a href="{{ $record->facebook }}" >
                                     <i class="fa-brands fa-facebook" ></i>
@@ -59,7 +70,7 @@
                                     <i class='bx bxl-whatsapp'></i>
                                 </a>
                             </div>
-                            
+                           
                         </div>
                     </div>
                 </div>

@@ -6,6 +6,7 @@ use App\Models\Employee as employee;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use JeroenDesloovere\VCard\VCard;
 use PHPUnit\TextUI\Configuration\Merger;
 
 class MainController extends Controller
@@ -185,5 +186,45 @@ class MainController extends Controller
 
 
         return response(['msg' => "Deleted $this->ent"]);
+    }
+
+    public function downloadVCard(Request $request)
+    {
+        $id = $request->input('id'); // Use $request->input() for better practice
+        $user = Employee::where('employeeID', $id)->first();
+        
+        if (!$user) {
+            return response()->json(['error' => 'User not found.']);
+        }
+    
+        // Create a new vCard
+        $vCard = new VCard();
+        $vCard->addName($user->firstname, $user->lastname);
+        $vCard->addEmail($user->email);
+        $vCard->addPhoneNumber($user->phone_number);
+        // Add more information as needed from the database
+        
+    
+        $vCardDirectory = public_path('vcard');
+        
+    
+        if (!file_exists($vCardDirectory)) {
+            mkdir($vCardDirectory, 0755, true);
+        }
+    
+    
+        $filename = $user->lastname . '-' . $user->firstname . '.vcf';
+        $filePath = $vCardDirectory . DIRECTORY_SEPARATOR . $filename; 
+    
+    
+        $vCard->setSavePath($vCardDirectory);
+        $vCard->save($filename);
+    
+        if (!file_exists($filePath)) {
+            return response()->json(['error' => 'vCard not generated: ' . $filePath]);
+        }
+    
+      
+        return response()->download($filePath);
     }
 }
