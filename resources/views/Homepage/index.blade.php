@@ -10,7 +10,7 @@
                 <div class="row">
                     <div class="col-12 col-md-5 left-content">
                         <div class="employee-img p-0"></div>
-                        <img src={{ '/profiles/' . $record->profile }} alt="{{ $record->profile }}" />
+                        <img src={{ "/profiles/".$record->profile }} alt="{{ $record->profile }}" />
 
                     </div>
                     <div class="col-12 col-md-7 right-content">
@@ -32,8 +32,8 @@
                             <div class="website"><b>Website:</b> www.infinitech.com</div>
                         </div>
 
-                        <div class="contacts mb-xl-4">
-                            <form method="get" action="/download-vcard">
+                        <div class="contacts mb-4">
+                            <form method="get" action="/download-vcard" >
                                 <button type="submit" >
                                     <i class="fa-solid fa-id-card"></i>
                                     <span> Add to contacts</span>

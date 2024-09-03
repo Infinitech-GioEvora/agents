@@ -83,6 +83,7 @@ img {
 
 .left-content img {
     border-radius: 16px;
+
     border: 2px solid #f9f9f9;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
 }
@@ -90,7 +91,6 @@ img {
 .right-content {
     position: relative;
     background: none;
-    top: 25px;
     padding: 16px 24px;
 }
 
@@ -138,6 +138,7 @@ img {
     font-family: var(--font-family), sans-serif;
 
 }
+
 .modal-content hr {
     height: 2px !important;
     background-color: #000 !important;
@@ -164,35 +165,32 @@ img {
 .social:hover {
     transform: scale(1.4);
 }
-.contacts{
+
+.contacts {
     border: 1px solid #f9f9f9;
     width: fit-content;
     padding: 8px 16px;
     font-weight: 700;
     transition: ease-in-out .2s;
+
 }
 
 
-.contacts button{
+.contacts button {
     text-decoration: none;
     color: #f9f9f9;
     background-color: transparent;
     border: none;
 }
 
-.contacts:hover{
+.contacts:hover {
     background-color: var(--primary-color);
 }
 
 @media only screen and (max-width: 480px) {
-    .main-section {
-        text-align: center;
+    .employee-details {
+        margin-top: 24px;
     }
-
-    .contacts a{
-        text-align: center;
-    }
-
 
     .employee-social {
         margin-top: 24px;

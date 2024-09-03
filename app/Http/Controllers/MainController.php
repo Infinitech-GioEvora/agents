@@ -35,14 +35,6 @@ class MainController extends Controller
         return response($data);
     }
 
-    // public function employee($employee_id)
-    // {
-    //     // $record = Employee::all();
-    //     $record = Employee::where('employeeID', $employee_id)->first();
-    //     $data = ['record' => $record];
-
-    //     return view('Homepage/index', compact('record'));
-    // }
 
     public function employee($employee_id)
     {
@@ -65,6 +57,8 @@ class MainController extends Controller
             'middlename' => 'required',
             'position' => 'required',
             'employeeID' => 'required',
+            'phone' => 'required',
+            'email' => 'required',
             'facebook' => 'required',
             'telegram' => 'required',
             'wechat' => 'required|file|mimes:jpg,png,jpeg|max:2048',
@@ -83,7 +77,7 @@ class MainController extends Controller
                 "http://127.0.0.1:8000/abic/" . $request['employeeID']
             );
 
-        $keys = ['lastname', 'firstname', 'middlename', 'position', 'employeeID', 'facebook', 'telegram', 'wechat', 'viber', 'whatsapp', 'profile', 'qrcode'];
+        $keys = ['lastname', 'firstname', 'middlename', 'position', 'employeeID', 'phone', 'email', 'facebook', 'telegram', 'wechat', 'viber', 'whatsapp', 'profile', 'qrcode'];
 
 
         foreach ($keys as $key) {
@@ -94,7 +88,7 @@ class MainController extends Controller
             } elseif ($key == 'wechat') {
                 if ($request->hasFile('wechat')) {
                     $file = $request->file('wechat');
-                    $filename = time() . '_' . $file->getClientOriginalName();
+                    $filename = $file->getClientOriginalName();
                     $filePath = $file->move('wechat', $filename, 'public');
                     $record->$key = $filename;
                 }
@@ -155,8 +149,15 @@ class MainController extends Controller
                 }
             } elseif ($key == 'profile') {
                 if ($request->hasFile('profile')) {
+                    $paths = [];
+                    array_push($paths, public_path("profiles/" . $record->profile));
+            
+                    foreach ($paths as $path) {
+                        file_exists($path) ? unlink($path) : false;
+                    }
+                  
                     $file = $request->file('profile');
-                    $filename = time() . '_' . $file->getClientOriginalName();
+                    $filename = $file->getClientOriginalName();
                     $filePath = $file->move('profiles', $filename, 'public');
 
                     $upd[$key] = $filename;
@@ -165,6 +166,9 @@ class MainController extends Controller
                 $upd[$key] = $request->$key;
             }
         }
+
+      
+
         $record->update($upd);
 
         return response(['msg' => "Updated $this->ent"]);
@@ -182,28 +186,29 @@ class MainController extends Controller
         foreach ($paths as $path) {
             file_exists($path) ? unlink($path) : false;
         }
-        $record->delete();
 
+        $record->delete();
 
         return response(['msg' => "Deleted $this->ent"]);
     }
 
     public function downloadVCard(Request $request)
     {
-        $id = $request->input('id'); // Use $request->input() for better practice
+        $id = $request->input('id'); 
         $user = Employee::where('employeeID', $id)->first();
         
         if (!$user) {
             return response()->json(['error' => 'User not found.']);
         }
     
-        // Create a new vCard
         $vCard = new VCard();
         $vCard->addName($user->firstname, $user->lastname);
         $vCard->addEmail($user->email);
-        $vCard->addPhoneNumber($user->phone_number);
-        // Add more information as needed from the database
-        
+        $vCard->addPhoneNumber($user->phone);
+        $vCard->addJobtitle("Abic Realty - ". $user->position);
+        $vCard->addAddress($name = '', $extended = 'Unit 311, Campos Rueda Bldg.', $street = 'Urban Ave.', $city ='Makati City', $region='NCR', $zip='5200', $country='Philippines', $type='WORK');
+        $vCard->addURL("https://abicrealtycorporation.com/");
+        $vCard->addCompany('Abic Realty & Consultancy Corporation', $department = 'Sales');
     
         $vCardDirectory = public_path('vcard');
         
