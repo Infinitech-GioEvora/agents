@@ -68,6 +68,13 @@ img {
             rgba(99, 88, 238, 1) 94.3%);
     transition: all 0.475s;
 }
+a{
+    text-decoration: none;
+    color: #f9f9f9;
+}
+a:hover{
+    color: var(--background-color);
+}
 
 .custom-tooltip {
     --bs-tooltip-bg: var(--secondary-color);

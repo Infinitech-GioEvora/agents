@@ -10,26 +10,21 @@
                 <div class="row">
                     <div class="col-12 col-md-5 left-content">
                         <div class="employee-img p-0"></div>
-                        <img src={{ "/profiles/".$record->profile }} alt="{{ $record->profile }}" />
-
+                        <img src="/profiles/{{ $record->profile }}" alt="{{ $record->profile }}">
                     </div>
                     <div class="col-12 col-md-7 right-content">
                         <div class="employee-details mb-4">
                             <h1 class="employee-name">{{ $record->firstname }} {{ $record->lastname }}</h1>
                             <h2 class="employee-position mb-4">{{ $record->position }}</h2>
-                            <p class="employee-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus
-                                error eius
-                                omnis facilis officia modi dolor atque quo eligendi accusamus blanditiis fugiat sapiente
-                                aspernatur est nisi, quasi voluptates veritatis pariatur?</p>
                         </div>
 
                         <div class="employee-contact mb-4">
                             <div class="location"><b>Office Address:</b> Unit 311, Campos Rueda Bldg., Urban Avenue,
                                 Makati City
                             </div>
-                            <div class="mobile-number"><b>Mobile No.:</b> +63992 440 1097</div>
+                            <div class="mobile-number"><b>Mobile No.:</b> <a href="tel:{{$record->phone}}">(+63) {{$record->phone}}</a> </div>
                             <div class="tel"><b>Telephone No.:</b> (02) 7001-6157</div>
-                            <div class="website"><b>Website:</b> www.infinitech.com</div>
+                            <div class="website"><b>Website:</b> <a href="https://abicrealtycorporation.com/">https://abicrealtycorporation.com/</a></div>
                         </div>
 
                         <div class="contacts mb-4">
@@ -40,7 +35,6 @@
                                 </button>
                                 <input type="hidden" name="id" value="{{ $record->employeeID }}">
                             </form>
-                           
                         </div>
 
                         <div class="employee-social d-flex ">
@@ -70,7 +64,6 @@
                                     <i class='bx bxl-whatsapp'></i>
                                 </a>
                             </div>
-                           
                         </div>
                     </div>
                 </div>
@@ -103,8 +96,6 @@
 
 @section('scripts')
     @parent
-
     <script src="{{ asset('js/Admin/Schedules.js') }}"></script>
-
 
 @endsection

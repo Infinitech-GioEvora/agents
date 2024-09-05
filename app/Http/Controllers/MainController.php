@@ -15,6 +15,7 @@ class MainController extends Controller
     public function dashboard_data()
     {
         $data["all"] = Employee::all()->count();
+
     }
 
     public function all()
@@ -36,7 +37,7 @@ class MainController extends Controller
     }
 
 
-    public function employee($employee_id)
+    public function employ($employee_id)
     {
         $record = Employee::where('employeeID', $employee_id)->first();
 
@@ -95,7 +96,7 @@ class MainController extends Controller
             } elseif ($key == 'profile') {
                 if ($request->hasFile('profile')) {
                     $file = $request->file('profile');
-                    $filename = time() . '_' . $file->getClientOriginalName();
+                    $filename = $file->getClientOriginalName();
                     $filePath = $file->move('profiles', $filename, 'public');
                     $record->$key = $filename;
                 }
@@ -143,7 +144,7 @@ class MainController extends Controller
             if ($key == 'wechat') {
                 if ($request->hasFile('wechat')) {
                     $file = $request->file('wechat');
-                    $filename = time() . '_' . $file->getClientOriginalName();
+                    $filename = $file->getClientOriginalName();
                     $filePath = $file->move('wechat', $filename, 'public');
                     $upd[$key] = $filename;
                 }
@@ -166,8 +167,6 @@ class MainController extends Controller
                 $upd[$key] = $request->$key;
             }
         }
-
-      
 
         $record->update($upd);
 
@@ -202,13 +201,13 @@ class MainController extends Controller
         }
     
         $vCard = new VCard();
-        $vCard->addName($user->firstname, $user->lastname);
-        $vCard->addEmail($user->email);
-        $vCard->addPhoneNumber($user->phone);
-        $vCard->addJobtitle("Abic Realty - ". $user->position);
-        $vCard->addAddress($name = '', $extended = 'Unit 311, Campos Rueda Bldg.', $street = 'Urban Ave.', $city ='Makati City', $region='NCR', $zip='5200', $country='Philippines', $type='WORK');
+        $fname = explode(" ", $user->firstname)[0];
+        $vCard->addName($fname, $user->lastname);
+        $vCard->addEmail($user->email, $type='EMAIL');
+        $vCard->addPhoneNumber($user->phone, $type='WORK');
+        $vCard->addJobtitle("Abic Realty & Consultancy Corporation - ". $user->position);
+        $vCard->addAddress($name = '', $extended = 'Unit 202, Campos Rueda Bldg.', $street = 'Urban Ave.', $city ='Makati City', $region='NCR', $zip='5200', $country='Philippines', $type='WORK');
         $vCard->addURL("https://abicrealtycorporation.com/");
-        $vCard->addCompany('Abic Realty & Consultancy Corporation', $department = 'Sales');
     
         $vCardDirectory = public_path('vcard');
         
@@ -218,7 +217,8 @@ class MainController extends Controller
         }
     
     
-        $filename = $user->lastname . '-' . $user->firstname . '.vcf';
+        $name = $user->lastname . '-' . $fname;
+        $filename = strtolower($name) . '.vcf';
         $filePath = $vCardDirectory . DIRECTORY_SEPARATOR . $filename; 
     
     

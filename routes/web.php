@@ -19,9 +19,6 @@ Route::get('/', function () {
     return view('error/PageNotFound');
 });
 
-Route::get('/test', function () {
-    return view('Homepage/test');
-});
 
 Route::get('/admin', function () {
     return view('Admin/index');
@@ -35,7 +32,7 @@ Route::get('/admin/employee', function () {
 
 
 
-Route::get('/abic/{employeeID}', [MainController::class, 'employee']);
+Route::get('/abic/{employeeID}', [MainController::class, 'employ']);
 
 Route::post('/admin/add', [MainController::class, 'add']);
 Route::get('/admin/all', [MainController::class, 'all']);
