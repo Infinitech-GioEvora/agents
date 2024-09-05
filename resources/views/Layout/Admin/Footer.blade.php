@@ -6,7 +6,7 @@
                 document.write(new Date().getFullYear());
             </script>
 
-            <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">Dental Clinic</a>
+            <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">Abic Realty & Consultancy Corporation</a>
         </div>
     </div>
 </footer>
